@@ -10,6 +10,83 @@
   }
   
 
+  #image-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    text-align: center;
+}
+
+#image-preview {
+    max-width: 90%;
+    max-height: 90%;
+    margin-top: 5%;
+}
+
+#close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 14px;
+    background-color: #fff;
+    color: #000;
+    font-size: 20px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.custom-file-upload {
+    position: absolute;
+    margin-top:30px; 
+    font-size: 15px; 
+    font-family:Montserrat; 
+    font-weight:bold; 
+    background: #00B2EC; 
+    height: 40px; 
+    width: 150px; 
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-file-upload:hover {
+background-color: #0069d9;
+}
+
+.custom-file-upload input[type="file"] {
+display: none;
+}
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 14px 10px;
+    font-size: 12px;
+    z-index: 1;
+    color: black;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
   .contact-bar {
     font-family: Montserrat;
     background-color: black;
@@ -60,6 +137,7 @@
   
   .services,
   .about {
+    background-color: black;
     padding: 2rem;
   }
   
@@ -74,6 +152,84 @@
     padding: 1rem;
     text-align: center;
   }
+
+  .modulename{
+    font-family: Montserrat;
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .product-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 960px;
+    padding: 20px;
+    height: 450px;
+  }
+  
+  .card {
+    background-color: #fff;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-basis: calc(50% - 20px);
+    margin-bottom: 40px;
+    overflow: hidden; /* Prevents image from overflowing card */
+    position: relative;
+  }
+  
+  .card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5); /* Add semi-transparent overlay */
+  }
+  
+  .card:hover:before {
+  
+    background-color: rgba(0, 0, 0, 0.7); /* Darken overlay on hover */
+  }
+  
+  .card a {
+    display: block;
+    height: 100%;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .card h2 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    color: #fff;
+      font-size: 13px;
+      margin-bottom: 0;
+      text-align: center;
+      margin-left: 50px;
+      margin-top: 100px;
+      width: 300px;
+  }
+  
+  .card:nth-child(odd) {
+    background-image: url('header.png');
+  }
+  
+  .card:nth-child(even) {
+    background-image: url('header.png');
+  }
+  a {text-decoration : none;}.
   
   /* Responsive styles */
   @media (max-width: 768px) {
