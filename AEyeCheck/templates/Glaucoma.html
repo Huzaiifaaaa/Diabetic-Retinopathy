@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glaucoma</title>
+    <link rel="stylesheet" href="/static/styles/styles.css">
+    <link rel="stylesheet" href="/static/styles/comingsoon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="icon" href="/static/images/pageIcon.png">
+</head>
+<body>
+    <div class="contact-bar">
+        <span class="phone"><i class="fa fa-phone"></i> (123) 456-7890</span>
+        <span class="email"><i class="fa fa-envelope"></i> info@aeyecheck.com</span>
+    </div>
+    <header>
+        <nav>
+            <ul>
+                <h3 style="margin-right: 650px;"><a href="{{url_for('Index')}}">AEyeCheck</a></h3>
+                <li><a href="#">Who we are</a></li>
+                <li>
+                    <div class="dropdown">
+                        <span>Products</span>
+                        <div class="dropdown-content">
+                            <a href={{url_for('Glaucoma')}}><p>Glaucoma</p></a>
+                            <a href={{url_for('DiabeticRetinopathy')}}><p>Diabetic Ret.</p></a>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#">What we do</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Certification</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main style="background-color: black;">
+        <div id="notfound">
+            <div class="notfound">
+                <div class="notfound-404">
+                    <h1>:)</h1>
+                </div>
+                <h2>Coming Soon!</h2>
+                <p>Stay Tuned!</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>© 2023 &nbsp; AEyeCheck. All rights reserved.</p>
+    </footer>
+</body>
+</html>

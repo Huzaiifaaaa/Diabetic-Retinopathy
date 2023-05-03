@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetic Retinopathy</title>
+    <link rel="stylesheet" href="/static/styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="icon" href="/static/images/pageIcon.png">
+</head>
+<body>
+    <div class="contact-bar">
+        <span class="phone"><i class="fa fa-phone"></i> (123) 456-7890</span>
+        <span class="email"><i class="fa fa-envelope"></i> info@aeyecheck.com</span>
+    </div>
+    <header>
+        <nav>
+            <ul>
+                <h3 style="margin-right: 650px;"><a href="{{url_for('Index')}}">AEyeCheck</a></h3>
+                <li><a href="#">Who we are</a></li>
+                <li>
+                    <div class="dropdown">
+                        <span>Products</span>
+                        <div class="dropdown-content">
+                            <a href={{url_for('Glaucoma')}}><p>Glaucoma</p></a>
+                            <a href={{url_for('DiabeticRetinopathy')}}><p>Diabetic Ret.</p></a>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#">What we do</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Certification</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero" style="color: white; font-family:Montserrat; background: url('static/images/header.png');">
+            <h1 style="margin-top: 80px;">Diabetic Retinopathy</h1>
+            <form>
+                <label for="image-input" class="custom-file-upload">
+                    <input type="file" id="image-input">
+                    Choose Image
+                  </label>
+                  <button  style="margin-top:100px; font-size: 15px; font-family:Montserrat; font-weight:bold; background: #00B2EC; height: 40px; width: 150px; border-radius: 50px;" type="button" id="preview-button">Preview Image</button>
+            </form>
+          
+            <button style="margin-top:30px;  font-size: 15px; font-family:Montserrat; font-weight:bold; background: #00B2EC; height: 40px; width: 150px; border-radius: 50px;">Submit</button>
+       
+            <div id="image-popup">
+                <img id="image-preview">
+                <button type="button" id="close-button"><i class="fa fa-close"></i></button>
+            </div>
+        </section>
+        <section class="about">
+            <h2 style="color: white;"></h2>>About Us</h2>
+            <p style="color: white;"></p>>Learn more about our medical professionals and our commitment to providing the
+            best care.</p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2023 &nbsp; AEyeCheck. All rights reserved.</p>
+    </footer>
+    <script>
+        const imageInput = document.getElementById('image-input');
+        const previewButton = document.getElementById('preview-button');
+        const imagePopup = document.getElementById('image-popup');
+        const imagePreview = document.getElementById('image-preview');
+        const closeButton = document.getElementById('close-button');
+
+        previewButton.addEventListener('click', () => {
+            console.log('heree')
+            if (imageInput.files && imageInput.files[0]) {
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    imagePreview.setAttribute('src', event.target.result);
+                    imagePopup.style.display = 'block';
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            }
+        });
+
+        closeButton.addEventListener('click', () => {
+            imagePopup.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
