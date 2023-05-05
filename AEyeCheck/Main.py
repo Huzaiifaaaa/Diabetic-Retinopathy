@@ -14,6 +14,4 @@ def Glaucoma():
 def DiabeticRetinopathy():
     return render_template("DiabeticRetinopathy.html")
 
-
-
 app.run()
