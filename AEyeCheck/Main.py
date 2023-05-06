@@ -5,16 +5,38 @@ import os
 import requests
 
 import utils
+import Predict
 
 ALLOWED_EXTENSIONS = set(['jpeg'])
 
-#2PQqFoWUiz9rGfLIrGgp8TYKU9G_61bT7NdRcBSGNucQsYiao
-#ngrok authtoken 1xre3GrEK8vyPrBcae6s14QNaHb_4pG96LviFgkzV2uKGsouJ
-#ngrok http https://localhost:5000 -host-header="localhost:5000"
+#ngrok authtoken 2PQqFoWUiz9rGfLIrGgp8TYKU9G_61bT7NdRcBSGNucQsYiao
+#ngrok http h5000
 
 app = Flask(__name__)
 app.secret_key = 'naseerbajwa'
-#app.config['UPLOAD_FOLDER'] = 'AEyeCheck/input/diabeticretinopathy'
+apitoken="naseerbajwa"
+
+@app.route("/api", methods=['GET', 'POST'])
+def api():
+    if request.method == 'POST':
+        module = request.args.get("module")
+        token = request.args.get("token")
+        imagepath = request.args.get("imagepath")
+        image_file = request.files["image"]
+
+        if image_file and utils.allowed_files(image_file.filename, ALLOWED_EXTENSIONS) and (module=="DiabeticRetinopathy" or module=="Glaucoma") and token==apitoken:
+            filename = secure_filename(image_file.filename)
+            filename=utils.get_unique_filename(module)
+            if module=="DiabeticRetinopathy":
+                image_file.save(os.path.join(r'AEyeCheck\static\input\diabeticretinopathy', filename))
+                session['apiimagepath'] = os.path.join(r'\static\input\diabeticretinopathy', filename)
+            else:
+                return "Invalid Request"
+            
+            return Predict.predict(module, session['apiimagepath'])
+
+        else:
+            return "Invalid Token or Module"
 
 @app.route("/")
 def Index():
