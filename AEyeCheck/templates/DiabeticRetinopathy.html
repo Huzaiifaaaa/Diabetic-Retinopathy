@@ -18,7 +18,7 @@
     <header>
         <nav>
             <ul>
-                <h3 style="margin-right: 650px;"><a href="{{url_for('Index')}}">AEyeCheck</a></h3>
+                <h3 style="margin-right: 700px;"><a href="{{url_for('Index')}}">AEyeCheck</a></h3>
                 <li><a href="#">Who we are</a></li>
                 <li>
                     <div class="dropdown">
@@ -36,17 +36,19 @@
         </nav>
     </header>
     <main>
-        <section class="hero" style="color: white; font-family:Montserrat; background: url('static/images/header.png');">
+        <section class="hero" style="color: white; height: 500px; font-family:Montserrat; background: url('static/images/header.png');">
             <h1 style="margin-top: 80px;">Diabetic Retinopathy</h1>
-            <form>
+            
+            <form action = "http://localhost:5000/drupload" method = "POST" enctype = "multipart/form-data">
                 <label for="image-input" class="custom-file-upload">
-                    <input type="file" id="image-input">
+                    <input type="file" name = "file" id="image-input" accept="image/jpeg">
                     Choose Image
-                  </label>
+                </label>
+                
                   <button  style="margin-top:100px; font-size: 15px; font-family:Montserrat; font-weight:bold; background: #00B2EC; height: 40px; width: 150px; border-radius: 50px;" type="button" id="preview-button">Preview Image</button>
-            </form>
-          
-            <button style="margin-top:30px;  font-size: 15px; font-family:Montserrat; font-weight:bold; background: #00B2EC; height: 40px; width: 150px; border-radius: 50px;">Submit</button>
+                  <br>
+                  <button type="submit" style="margin-top:30px;  font-size: 15px; font-family:Montserrat; font-weight:bold; background: #00B2EC; height: 40px; width: 150px; border-radius: 50px;">Submit</button>
+            </form>    
        
             <div id="image-popup">
                 <img id="image-preview">
