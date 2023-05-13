@@ -8,6 +8,8 @@ import utils
 import Predict
 
 ALLOWED_EXTENSIONS = set(['jpeg'])
+COARSE_GRAIN_PATH="AEyeCheck\\static\\model\\cgc.pth"
+FINE_GRAIN_PATH="AEyeCheck\\static\\model\\fgc.pth"
 
 #ngrok authtoken 2PQqFoWUiz9rGfLIrGgp8TYKU9G_61bT7NdRcBSGNucQsYiao
 #ngrok http h5000
@@ -66,6 +68,10 @@ def upload():
             filename=utils.get_unique_filename("DiabeticRetinopathy")
             f.save(os.path.join(r'AEyeCheck\static\input\diabeticretinopathy', filename))
             session['imagepath'] = os.path.join(r'\static\input\diabeticretinopathy', filename)
+
+            predict=Predict.Predict("DiabeticRetinopathy", COARSE_GRAIN_PATH,FINE_GRAIN_PATH)
+            #predict.predict(session['imagepath'])
+
             return redirect(url_for('Diagnostics'))
         else:
             return redirect(url_for('DiabeticRetinopathy'))
