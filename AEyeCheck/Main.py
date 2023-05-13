@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 import os
@@ -57,8 +57,8 @@ def Diagnostics():
     else:
         return redirect(url_for('Index'))
 
-@app.route('/drupload', methods = ['GET', 'POST'])
-def drupload():
+@app.route('/upload', methods = ['GET', 'POST'])
+def upload():
     if request.method == 'POST':
         f = request.files['file']
         if f and utils.allowed_files(f.filename, ALLOWED_EXTENSIONS):
