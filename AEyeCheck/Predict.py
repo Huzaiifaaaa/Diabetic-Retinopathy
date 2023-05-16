@@ -1,3 +1,4 @@
+# Required Libraries
 import torch
 import torch.nn as nn
 from torchvision import transforms
@@ -23,46 +24,46 @@ class CoarseGrainedClassifier(nn.Module):
     def forward(self, x):
         return  self.fc2(self.relu(self.fc1(x)))
 
+# Load the pretrained model
 
-class Predict():
-    def __init__(self,module,cgPath,fgPath):
-        self.module=module
-        self.cgPath=cgPath
-        self.fgPath=fgPath
-        pretrained_model = torch.hub.load('pytorch/vision:v0.9.0', 'resnet50', pretrained=True)
-        pretrained_model.fc = nn.Linear(pretrained_model.fc.in_features, 4)
+#move model to cpu
+pretrained_model = torch.hub.load('pytorch/vision:v0.9.0', 'resnet50', pretrained=True)
+pretrained_model.fc = nn.Linear(pretrained_model.fc.in_features, 4)
 
-        # fine_grained_classifier = FineGrainedClassifier(pretrained_model)
-        # fine_grained_classifier.load_state_dict(torch.load(self.fgPath))
-        # fine_grained_classifier.eval()
+# Load the fine-grained model
+fine_grained_classifier = FineGrainedClassifier(pretrained_model)
+fine_grained_classifier.load_state_dict(torch.load(r'C:\Users\huzai\Documents\GitHub\Diabetic-Retinopathy\AEyeCheck\static\model\fgc.pth'))
+fine_grained_classifier.eval()
 
-        coarse_grained_classifier = CoarseGrainedClassifier(4, 64, 4)
-        coarse_grained_classifier.load_state_dict(torch.load(self.cgPath))
-        coarse_grained_classifier.eval()
+# Load the coarse-grained model
+coarse_grained_classifier = CoarseGrainedClassifier(4, 64, 4)
+coarse_grained_classifier.load_state_dict(torch.load(r'C:\Users\huzai\Documents\GitHub\Diabetic-Retinopathy\AEyeCheck\static\model\cgc.pth'))
+coarse_grained_classifier.eval()
 
-    def preprocess(image_path):
-        image = Image.open(image_path)
-        preprocess = transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ])
-        image = preprocess(image)
-        image = torch.unsqueeze(image, 0)
-        return image
+# Preprocess function
+def preprocess(image_path):
+    image = Image.open(image_path)
+    preprocess = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
+    image = preprocess(image)
+    image = torch.unsqueeze(image, 0)
+    return image
 
+# Predict function
+def predict(image_path):
+    image = preprocess(image_path)
+    fine_output = fine_grained_classifier(image)
+    coarse_output = coarse_grained_classifier(fine_output.detach())
+    _, fine_pred = torch.max(fine_output.data, 1)
+    _, coarse_pred = torch.max(coarse_output.data, 1)
+    return fine_pred.item(), coarse_pred.item()
 
-    def predict(self,image_path):
-        if self.module=="DiabeticRetinopathy":
-            image = self.preprocess(image_path)
-            #fine_output = self.fine_grained_classifier(image)
-            coarse_output = self.coarse_grained_classifier(fine_output.detach())
-            #_, fine_pred = torch.max(fine_output.data, 1)
-            _, coarse_pred = torch.max(coarse_output.data, 1)
-            #return fine_pred.item(), coarse_pred.item()
-            return coarse_pred.item()
-        elif self.module=="Glaucoma":
-            return
-
-
+# Example usage
+image_path = r'C:\Users\huzai\Documents\GitHub\Diabetic-Retinopathy\AEyeCheck\static\input\diabeticretinopathy\DRD-20230515214246721711.jpeg'
+fine_pred, coarse_pred = predict(image_path)
+print(f"Fine-grained prediction: {fine_pred}")
+print(f"Coarse-grained prediction: {coarse_pred}")
